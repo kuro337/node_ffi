@@ -1,0 +1,12 @@
+{
+  "name": "ffi-esm",
+  "version": "1.0.0",
+  "main": "export.js",
+  "gypfile": true,
+  "scripts": {
+    "install": "node-gyp rebuild"
+  },
+  "dependencies": {
+    "node-addon-api": "^3.0.0"
+  }
+}
