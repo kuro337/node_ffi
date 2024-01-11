@@ -4,3 +4,4 @@ prebuilds/darwin-arm64/*
 build/Release/
 *zig-out*
 *zig-cache*
+build
