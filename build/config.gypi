@@ -409,18 +409,9 @@
     "v8_trace_maps": 0,
     "v8_use_siphash": 1,
     "want_separate_host_toolset": 0,
-    "nodedir": "/Users/kuro/Library/Caches/node-gyp/21.4.0",
+    "nodedir": "/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0",
     "python": "/Users/kuro/Downloads/Xcode.app/Contents/Developer/usr/bin/python3",
     "standalone_static_library": 1,
-    "global_prefix": "/opt/homebrew",
-    "local_prefix": "/Users/kuro/Documents/Code/JS/FFI/zig_c_napi/test_napi_module",
-    "globalconfig": "/opt/homebrew/etc/npmrc",
-    "init_module": "/Users/kuro/.npm-init.js",
-    "userconfig": "/Users/kuro/.npmrc",
-    "npm_version": "10.2.4",
-    "node_gyp": "/opt/homebrew/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js",
-    "cache": "/Users/kuro/.npm",
-    "user_agent": "npm/10.2.4 node/v21.4.0 darwin arm64 workspaces/false",
-    "prefix": "/opt/homebrew"
+    "target": "21.0.0"
   }
 }

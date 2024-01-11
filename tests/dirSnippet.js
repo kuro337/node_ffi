@@ -1,10 +1,8 @@
 const addon = require("../build/Release/zig_core");
 
 // inputs
-const dir_path =
-  "/Users/kuro/Documents/Code/Zig/FileIO/vsfragments/tests/mock/backup/input";
-const output_file =
-  "/Users/kuro/Documents/Code/Zig/FileIO/vsfragments/tests/mock/backup/output/testing.code-snippets";
+const dir_path = "path/to/dir";
+const output_file = "path/to/outputfile";
 
 // func calls
 const num_files_converted_a = addon.convertDirToSnippet(dir_path, output_file);

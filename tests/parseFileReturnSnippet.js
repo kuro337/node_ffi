@@ -1,7 +1,6 @@
 const addon = require("../build/Release/zig_core");
 
-const abs_path =
-  "/Users/kuro/Documents/Code/Zig/FileIO/vsfragments/tests/unit_tests.zig";
+const abs_path = "path/to/outputfile";
 
 const curr_path = "testfile.txt";
 

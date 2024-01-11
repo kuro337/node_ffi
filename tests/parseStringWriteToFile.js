@@ -23,17 +23,6 @@ const test_new_snip = addon.parseStringWriteToFile(
 
 console.log(test_new_snip);
 
-// const only_input_output_paths = addon.parseFileWriteOutput(
-//   input_file,
-//   output_file,
-//   "",
-//   "",
-//   "",
-//   true,
-//   true,
-//   true
-// );
-
 // results
 // console.log(`${result} for read file write file.`);
 

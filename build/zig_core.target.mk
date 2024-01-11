@@ -7,13 +7,16 @@ DEFS_Debug := \
 	'-DUSING_UV_SHARED=1' \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
+	'-DV8_DEPRECATION_WARNINGS' \
+	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
 	'-D_GLIBCXX_USE_CXX11_ABI=1' \
 	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
-	'-D_DEBUG'
+	'-D_DEBUG' \
+	'-DV8_ENABLE_CHECKS'
 
 # Flags passed to all source files.
 CFLAGS_Debug := \
@@ -45,13 +48,13 @@ CFLAGS_OBJC_Debug :=
 CFLAGS_OBJCC_Debug :=
 
 INCS_Debug := \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/include/node \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/src \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/openssl/config \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/openssl/openssl/include \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/uv/include \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/zlib \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/v8/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/include/node \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/src \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/openssl/config \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/openssl/openssl/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/uv/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/zlib \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/v8/include \
 	-I/Users/kuro/Documents/Code/JS/FFI/zig_c_napi/ffi/node_modules/node-addon-api
 
 DEFS_Release := \
@@ -59,6 +62,8 @@ DEFS_Release := \
 	'-DUSING_UV_SHARED=1' \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
+	'-DV8_DEPRECATION_WARNINGS' \
+	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
 	'-D_GLIBCXX_USE_CXX11_ABI=1' \
 	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
@@ -96,18 +101,18 @@ CFLAGS_OBJC_Release :=
 CFLAGS_OBJCC_Release :=
 
 INCS_Release := \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/include/node \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/src \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/openssl/config \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/openssl/openssl/include \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/uv/include \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/zlib \
-	-I/Users/kuro/Library/Caches/node-gyp/21.4.0/deps/v8/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/include/node \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/src \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/openssl/config \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/openssl/openssl/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/uv/include \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/zlib \
+	-I/var/folders/2r/lz_81k1n127385kyqxzxzft00000gn/T/prebuildify/node/21.0.0/deps/v8/include \
 	-I/Users/kuro/Documents/Code/JS/FFI/zig_c_napi/ffi/node_modules/node-addon-api
 
 OBJS := \
-	$(obj).target/$(TARGET)/src/zig_core.o \
-	$(obj).target/$(TARGET)/src/napi_core.o
+	$(obj).target/$(TARGET)/src/native/c/zig_core.o \
+	$(obj).target/$(TARGET)/src/native/c/napi_core.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
@@ -161,7 +166,7 @@ LIBTOOLFLAGS_Release := \
 
 LIBS := \
 	/Users/kuro/Documents/Code/Zig/FileIO/vsfragments/c_exports/zig-out/lib/macos/aarch64/ReleaseFast/libvsfragment_cexports.a \
-	/Users/kuro/Documents/Code/Zig/FileIO/vsfragments/c_exports/zig-out/lib/native/libvsfragment_cexports_fast.a
+	/Users/kuro/Documents/Code/JS/FFI/zig_c_napi/ffi/src/native/zig/zig_fn/zig-out/lib/macos/aarch64/ReleaseFast/libzignapi_ReleaseFast.a
 
 $(builddir)/zig_core.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(builddir)/zig_core.node: LIBS := $(LIBS)

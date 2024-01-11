@@ -1,17 +1,15 @@
 const addon = require("../build/Release/zig_core");
 
-// Define your parameters
 const filePath =
   "/Users/kuro/Documents/Code/JS/FFI/zig_c_napi/ffi/indexparsedcopy.js";
 const title = "Zig Metadata Export";
 const prefix = "zigmetadatatest";
 const description = "Custom Description for Metadata Export";
-const printOut = false; // or false, as needed
-const new_snippet_file = true; // to add { }
+const printOut = false;
+const new_snippet_file = true;
 
 /* Creates a Snippet with Metadata for Title, Prefix, and Description */
 
-// Return String with enclosing { }
 const result = addon.createSnippetWithMetadata(
   filePath,
   title,
@@ -22,7 +20,6 @@ const result = addon.createSnippetWithMetadata(
 );
 console.log(result);
 
-// Return String without enclosing { }
 const noEnclosing = addon.createSnippetWithMetadata(
   filePath,
   title,
@@ -32,6 +29,7 @@ const noEnclosing = addon.createSnippetWithMetadata(
   printOut
 );
 console.log(noEnclosing);
+
 /*      
 EXPECTED_OUTPUT
 ____________________________

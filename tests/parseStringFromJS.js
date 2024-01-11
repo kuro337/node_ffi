@@ -1,0 +1,38 @@
+// const addon = require("../build/Release/zig_core");
+
+const { receiveStringFromJS, parseStringFromNode } = require("ffi-esm");
+
+const inputString = "asdajsnd\\n\\\\nnnnasdkaskmaskdm";
+const result = parseStringFromNode(inputString);
+
+if (result == 0) {
+  console.log("The C function succeeded.");
+} else {
+  console.log("The C function failed.");
+}
+
+const directResult = parseStringFromNode(inputString);
+
+console.log(`Passing JS String Directly Worked.\n${directResult}`);
+
+/*      
+EXPECTED_OUTPUT
+_______________
+Received string from JavaScript: asdajsnd\n\\nnnnasdkaskmaskdm
+String received in Zig from JS-C: asdajsnd\n\\nnnnasdkaskmaskdm
+The C function succeeded.
+Passing JS String Directly Worked.
+{
+        "Go HTTP Server Snippet": {
+                "prefix": "gohttpserver",
+                "body": [
+                        "asdajsnd\\n\\\\nnnnasdkaskmaskdm"
+                ],
+                "description": "Some Useful Snippet Descriptor. Pass --desc <string> to set explicitly."
+        }
+}
+
+
+
+
+*/
