@@ -5,3 +5,5 @@ build/Release/
 *zig-out*
 *zig-cache*
 build
+backup
+BUILD_LIB_PKG.sh

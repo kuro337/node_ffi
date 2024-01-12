@@ -10,3 +10,4 @@ src/native/zig/zig_fn/zig-out/
 src/native/zig/zig_fn/zig-cache/
 tests/
 package-lock.json
+backup

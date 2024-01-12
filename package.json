@@ -1,6 +1,6 @@
 {
   "name": "ffi-esm",
-  "version": "0.0.7",
+  "version": "0.0.90",
   "main": "lib/export.js",
   "types": "lib/ffi-esm.d.ts",
   "gypfile": true,

@@ -1,5 +1,12 @@
 # Prebuild
 
+Get Static Libs, Clean Node Modules, Compile Node Lib, Check Package, Increment Version, and Publish
+
+```bash
+./BUILD_LIB_PKG.sh
+
+```
+
 # Clean Build
 
 ```bash
