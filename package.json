@@ -1,7 +1,8 @@
 {
   "name": "ffi-esm",
-  "version": "1.0.0",
-  "main": "export.js",
+  "version": "0.0.7",
+  "main": "lib/export.js",
+  "types": "lib/ffi-esm.d.ts",
   "gypfile": true,
   "scripts": {
     "install": "node-gyp-build"
@@ -9,5 +10,14 @@
   "dependencies": {
     "node-addon-api": "^3.0.0",
     "node-gyp-build": "^4.8.0"
-  }
+  },
+  "files": [
+    "prebuilds/",
+    "README.md",
+    "binding.gyp",
+    "src/**/*",
+    "!src/**/zig-cache/",
+    "!src/**/zig-out/",
+    "lib"
+  ]
 }

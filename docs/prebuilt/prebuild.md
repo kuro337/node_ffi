@@ -34,7 +34,7 @@ npm install -g node-gyp
 
 prebuildify --all --strip
 
-prebuildify --napi
+prebuildify --napi # generates in curr location - we want it to be where we use it
 
 
 
@@ -102,9 +102,15 @@ rm -rf node_modules
 rm package-lock.json
 
 # prebuild binaries so when users run npm i - first checks for prebuilds
-prebuildify --napi
+npm install --save node-gyp-build
+prebuildify --napi --out lib
+
+
+
+# IMPORTANT - prebuilds folder must be next to export.js
 
 # install and then test in a new project
 npm install
+
 
 ```

@@ -3,24 +3,10 @@ const cString = @cImport({
     @cInclude("string.h");
 });
 
-// Building Static C Lib
-// zig build
-// npm install
-// zig build-lib funcs  .zig -static
+// **** c exposed methods
 
-// Build + Run System Binary
-// zig build-exe funcs.zig
-// ./funcs
-// zig test file.zig
-
-// =================== C EXPOSED FUNCTIONS ===================
 export fn add(a: i32, b: i32) i32 {
     return a + b;
-}
-
-export fn getString() [*c]const u8 {
-    const message = "Hello from Zig!";
-    return message.ptr;
 }
 
 export fn testWriteSampleFile() u8 {
@@ -30,14 +16,12 @@ export fn testWriteSampleFile() u8 {
 export fn writeFileCurrPath(file_path: [*c]const u8) u8 {
     const zig_file_path = std.mem.span(file_path);
 
-    // Call writeToPath, which expects a Zig slice ([]const u8)
     return writeToPath(zig_file_path);
 }
 
 export fn writeFileToPathAbs(file_path: [*c]const u8) u8 {
     const zig_file_path = std.mem.span(file_path);
 
-    // Call writeToPath, which expects a Zig slice ([]const u8)
     return writeFileAbsoluteImpl(zig_file_path);
 }
 
@@ -46,9 +30,7 @@ export fn getPath(file_path: [*c]const u8) [*c]const u8 {
 
     return getCurrPath(zig_file_path);
 }
-// =========================================================
 
-// SAMPLE DISK WRITE CALLED HERE 0 success 1 Error
 pub fn writeToDiskNoErr() u8 {
     _ = writeToDiskFromNode() catch |err| {
         std.debug.print("Error Writing File: {}\n", .{err});
@@ -59,7 +41,6 @@ pub fn writeToDiskNoErr() u8 {
     return 0;
 }
 
-// 1. DISK_WRITE USING NODEAPP PATH 0 success 1 Error
 pub fn writeToPath(file_path: []const u8) u8 {
     _ = writeToPathNode(file_path) catch |err| {
         std.debug.print("Failed Writing To File: {}\n", .{err});
@@ -70,10 +51,8 @@ pub fn writeToPath(file_path: []const u8) u8 {
     return 0;
 }
 
-// 2. GET_ABSOLUTE_PATH USING NODEAPP PATH -> C String
 pub fn getCurrPath(file_path: []const u8) [*c]const u8 {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    //  defer arena.deinit();
 
     const allocator = arena.allocator();
 
@@ -83,14 +62,8 @@ pub fn getCurrPath(file_path: []const u8) [*c]const u8 {
     };
 
     return abs_path.ptr;
-
-    // IMPORTANT:
-    // Within Zig - call these as
-    // if (abs_path != null) std.debug.print("Abs Path: {s}\n", .{abs_path});
-
 }
 
-// 3. GET_ABSOLUTE_PATH USING NODEAPP PATH -> C String
 pub fn writeFileAbsoluteImpl(file_path: []const u8) u8 {
     _ = writeToPathAbs(file_path) catch |err| {
         std.debug.print("Failed Writing To File:{s} ERR:{}\n", .{ file_path, err });
@@ -100,19 +73,6 @@ pub fn writeFileAbsoluteImpl(file_path: []const u8) u8 {
 
     return 0;
 }
-
-// =================== MAIN ===================
-
-// pub fn main() !void {
-//     //_ = testWriteSampleFile();
-//     const abs_full_path = "/Users/kuro/Documents/Code/JS/vsfragments/hellofrag/out/output/testfile.txt";
-//     try writeToPathAbs(abs_full_path);
-
-//     std.debug.print("No Err Main\n", .{});
-// }
-
-// Function that Writes a Sample File
-// Have this write the abs path to see where we wrote the output files
 
 pub fn writeToPathNode(file_path: []const u8) !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
@@ -146,7 +106,6 @@ pub fn writeToPathAbs(file_path: []const u8) !void {
     try writeStringsNewFile(file_path, &data);
 }
 
-// Function that Writes a Sample File
 pub fn writeToDiskFromNode() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
@@ -157,11 +116,7 @@ pub fn writeToDiskFromNode() !void {
     const file_path = "node_file.txt";
     _ = file_path;
 
-    // to get current absolute file path and appending file_path to it
-    //const abs_full_path = try getAbsolutePathCurrDir(allocator, file_path);
-
-    // Hardcode path to Extension Output
-    const abs_full_path = "/Users/kuro/Documents/Code/JS/vsfragments/hellofrag/out/output/testfile.txt";
+    const abs_full_path = "somepath/";
 
     std.debug.print("Full Abs Path: {s}\n", .{abs_full_path});
 
@@ -174,7 +129,7 @@ pub fn writeToDiskFromNode() !void {
     try writeStringsToExistingFile(abs_full_path, &data);
 }
 
-pub fn getAbsolutePath( // use getAbsolutePathCurrDir for path including file passed
+pub fn getAbsolutePath(
     allocator: std.mem.Allocator,
 ) ![]u8 {
     const abs_path = try std.fs.cwd().realpathAlloc(allocator, ".");
@@ -205,7 +160,6 @@ pub fn writeStringsToExistingFile(file_path: []const u8, data: [][]const u8) !vo
 pub fn writeStringsNewFile(file_path: []const u8, data: [][]const u8) !void {
     std.debug.print("Write Test First Call\n", .{});
 
-    // Open the file
     const file = try std.fs.createFileAbsolute(file_path, .{});
     defer file.close();
 
@@ -226,28 +180,14 @@ pub fn getAbsolutePathCurrDir(allocator: std.mem.Allocator, new_file_path: []con
     const abs_path = try getAbsolutePath(allocator);
     defer allocator.free(abs_path);
 
-    // Allocate a new slice that can hold the combined contents.
     var combinedPath = try allocator.alloc(u8, abs_path.len + new_file_path.len + 1); // +1 for null terminator if needed
-
-    // Copy the contents of `abs_path` and `new_file_path` into the new slice.
-    //    std.mem.copy(u8, combinedPath[0..abs_path.len], abs_path);
 
     @memcpy(combinedPath[0..abs_path.len], abs_path);
 
-    combinedPath[abs_path.len] = '/'; // Use the appropriate separator for your system
-
-    //std.mem.copy(u8, combinedPath[abs_path.len + 1 ..], new_file_path);
+    combinedPath[abs_path.len] = '/';
 
     @memcpy(combinedPath[abs_path.len + 1 ..], new_file_path);
     return combinedPath;
-
-    //============================================
-    // For C-Style Strings add a \0 to terminate
-    // Null-terminate the combined path if you plan to use it as a C-style string.
-    // combinedPath[combinedPath.len - 1] = 0;
-    // https://mtlynch.io/notes/zig-strings-call-c-code/
-    //============================================
-
 }
 
 pub fn writeToDiskNoErrtt() u8 {
@@ -257,9 +197,6 @@ pub fn writeToDiskNoErrtt() u8 {
     return 0;
 }
 
-// Accept a C String
-
-// can pass strings directly such as const convert_zig_str = "abcefgh"
 fn strdup(allocator: std.mem.Allocator, str: [:0]const u8) ![:0]u8 {
     const cCopy: [*:0]u8 = cString.strdup(str) orelse return error.OutOfMemory;
     defer std.c.free(cCopy);
@@ -267,12 +204,10 @@ fn strdup(allocator: std.mem.Allocator, str: [:0]const u8) ![:0]u8 {
     return allocator.dupeZ(u8, zCopy);
 }
 
-// can pass strings that are returned from a function (const [] u8) and not null terminated
-
 fn strdupZigToC(allocator: std.mem.Allocator, str: []const u8) ![:0]u8 {
     var buffer = try allocator.alloc(u8, str.len + 1);
 
     @memcpy(buffer, str);
-    buffer[str.len] = 0; // Null terminator
-    return buffer[0..str.len :0]; // Correct slice
+    buffer[str.len] = 0;
+    return buffer[0..str.len :0];
 }

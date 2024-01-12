@@ -1,0 +1,12 @@
+node_modules/
+pkgjson.copy
+build/Release/
+zig-out/
+zig-cache/
+build/
+docs/
+binding.gyp
+src/native/zig/zig_fn/zig-out/
+src/native/zig/zig_fn/zig-cache/
+tests/
+package-lock.json

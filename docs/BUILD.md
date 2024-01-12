@@ -53,6 +53,9 @@ module.exports = {
 npm init -y
 npm link ffi-esm # from okg.json
 
+# from package we linked to remove
+npm unlink --global
+
 # should create node_modules
 ```
 

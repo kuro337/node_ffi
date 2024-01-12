@@ -5,11 +5,7 @@ const Tag = std.Target.Os.Tag;
 const Arch = std.Target.Cpu.Arch;
 const OptimizeMode = std.builtin.OptimizeMode;
 
-const OS = [_]Tag{
-    Tag.macos, Tag.linux,
-    //Tag.windows,
-};
-
+const OS = [_]Tag{ Tag.macos, Tag.linux };
 const ARCH = [_]Arch{ Arch.aarch64, Arch.x86_64 };
 const MODE = [_]OptimizeMode{ .Debug, .ReleaseSafe, .ReleaseSmall, .ReleaseFast };
 
@@ -39,13 +35,10 @@ pub fn build(b: *std.Build) !void {
                     .optimize = optimization,
                 });
 
-                // b.installArtifact(lib);
-
                 const target_output = b.addInstallArtifact(lib, .{
                     .dest_dir = .{
                         .override = .{
                             .custom = try std.fmt.allocPrint(b.allocator, "lib/{s}/{s}/{s}", .{ osystem, cpuarch, release }),
-                            //.custom = try target.zigTriple(b.allocator),
                         },
                     },
                 });
@@ -55,55 +48,3 @@ pub fn build(b: *std.Build) !void {
         }
     }
 }
-
-//     for (build_targets) |target| {
-//         for (build_configs) |config| {
-//             const exe_name = try std.mem.concat(allocator, u8, &[_][]const u8{ build_output_artifact_name, "_", config.name });
-
-//             // =============== STATIC LIBRARY FOR C ===============
-
-//             const lib = b.addStaticLibrary(.{
-//                 .name = exe_name,
-
-//                 .root_source_file = .{ .path = "funcs.zig" },
-//                 .target = target,
-//                 .optimize = config.optimize,
-//             });
-
-//             b.installArtifact(lib);
-
-//             const target_output = b.addInstallArtifact(lib, .{
-//                 .dest_dir = .{
-//                     .override = .{
-//                         .custom = try target.zigTriple(b.allocator),
-//                     },
-//                 },
-//             });
-
-//             b.getInstallStep().dependOn(&target_output.step);
-//         }
-//     }
-// }
-
-// const build_targets = [_]std.zig.CrossTarget{ .{}, .{
-//     .cpu_arch = .aarch64,
-//     .os_tag = .macos,
-// }, .{
-//     .cpu_arch = .x86_64,
-//     .os_tag = .linux,
-// }, .{
-//     .cpu_arch = .x86_64,
-//     .os_tag = .windows,
-// } };
-
-// const BuildConfig = struct {
-//     name: []const u8,
-//     optimize: std.builtin.OptimizeMode,
-// };
-
-// const build_configs = [_]BuildConfig{
-//     .{ .name = "fast", .optimize = .ReleaseFast },
-//     .{ .name = "safe", .optimize = .ReleaseSafe },
-//     .{ .name = "debug", .optimize = .Debug },
-//     .{ .name = "small", .optimize = .ReleaseSmall },
-// };
