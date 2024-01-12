@@ -2,10 +2,15 @@
 
 creating node modules with native c/c++/rust/zig
 
-> npm i esm-ffi
+<br>
+
+<hr>
+
+**npm i esm-ffi**
+
+<hr>
 
 <br>
-<hr>
 
 building: [node-gyp](https://github.com/prebuild/node-gyp-build)
 
